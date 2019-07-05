@@ -69,6 +69,14 @@ const Reserved = sequelize.define('reserved_date', {
   date: {
     type: Sequelize.DATEONLY,
   }
+},
+{
+  indexes: [
+      {
+          unique: true,
+          fields: ['listing_id', 'date']
+      }
+  ]
 })
 
 const CustomRates = sequelize.define('custom_rate', {
@@ -91,7 +99,18 @@ const CustomRates = sequelize.define('custom_rate', {
   price: {
     type: Sequelize.DECIMAL(10,2)
   }
+},
+{
+  indexes: [
+      {
+          unique: true,
+          fields: ['listing_id', 'date']
+      }
+  ]
 })
+
+// sequelize.sync();
+
 
 module.exports = {
   Listing, Reserved, CustomRates
