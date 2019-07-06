@@ -31,7 +31,10 @@ app.get('/reserved/month/', (req, res) => {
       listing_id: id,
     },
   })
-    .then(results => res.send(results))
+  .then((results) => {
+    const days = results.map(date => Number(date.date.slice(-2)));
+    res.send(days);
+  })
     .catch(error => res.send(error));
 });
 
