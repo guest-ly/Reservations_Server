@@ -39,18 +39,28 @@ app.get('/reserved/month/', (req, res) => {
 });
 
 app.get('/custom/month/', (req, res) => {
-  const { id, month, year } = req.query;
+  const { id, time } = req.query;
 
   db.CustomRates.findAll({
     attributes: ['date', 'price'],
     where: {
-      where: sequelize.where(sequelize.fn('YEAR', sequelize.col('date')), year),
-      $and: sequelize.where(sequelize.fn('MONTH', sequelize.col('date')), month),
+      date: time,
       listing_id: id,
     },
   })
     .then(results => res.send(results))
     .catch(error => res.send(error));
+
+  // db.CustomRates.findAll({
+  //   attributes: ['date', 'price'],
+  //   where: {
+  //     where: sequelize.where(sequelize.fn('YEAR', sequelize.col('date')), year),
+  //     $and: sequelize.where(sequelize.fn('MONTH', sequelize.col('date')), month),
+  //     listing_id: id,
+  //   },
+  // })
+  //   .then(results => res.send(results))
+  //   .catch(error => res.send(error));
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
