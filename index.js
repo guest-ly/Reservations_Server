@@ -1,5 +1,5 @@
 const express = require('express');
-
+const path = require('path');
 const app = express();
 const port = 3001;
 const bodyParser = require('body-parser');
@@ -7,7 +7,7 @@ const sequelize = require('sequelize');
 const db = require('./db/index.js');
 
 app.use(bodyParser());
-app.use(express.static('/Users/katherinewang/Desktop/Reservations/public/dist'));
+app.use('/booking/:listingID', express.static('/Users/katherinewang/Desktop/Reservations/public/dist'));
 
 app.get('/listing/:listingID', (req, res) => {
   const { listingID } = req.params;
